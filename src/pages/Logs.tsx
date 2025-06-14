@@ -1,3 +1,4 @@
+
 import { useState } from 'react';
 import { useSmokeLog } from "@/hooks/useSmokeLog";
 import { SmokeLog, SmokeType } from "@/types";
@@ -30,7 +31,7 @@ const Logs = () => {
   };
 
   const handleDelete = (id: string) => {
-    if (confirm("Are you sure you want to delete this log?")) {
+    if (window.confirm("Are you sure you want to delete this log?")) {
       deleteLog(id);
       toast.success("Log deleted successfully!");
     }
@@ -58,7 +59,12 @@ const Logs = () => {
 
       <EditLogDialog
         open={isEditDialogOpen}
-        onOpenChange={setIsEditDialogOpen}
+        onOpenChange={(isOpen) => {
+          if (!isOpen) {
+            cancelEdit();
+          }
+          setIsEditDialogOpen(isOpen);
+        }}
         log={editingLog}
         onSave={saveEdit}
         onCancel={cancelEdit}
