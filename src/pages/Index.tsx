@@ -50,8 +50,11 @@ const Index = () => {
   return (
     <div className="flex flex-col h-full">
       <header className="p-4 sm:p-6">
-        <h1 className="text-2xl font-bold text-left">Dashboard</h1>
-        <p className="text-muted-foreground text-left">Your control center.</p>
+        <div className="flex items-center gap-3 mb-2">
+          <img src="/lovable-uploads/23789c59-36c7-4bf5-a537-f13eb2c0701a.png" alt="Smoke Control Logo" className="h-8 w-8" />
+          <h1 className="text-2xl font-bold">Dashboard</h1>
+        </div>
+        <p className="text-muted-foreground">Your control center.</p>
       </header>
       
       <div className="flex-grow p-4 sm:p-6 pt-0 space-y-4">
