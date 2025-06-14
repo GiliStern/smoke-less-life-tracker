@@ -1,10 +1,9 @@
-
 import { useState } from 'react';
 import { useSmokeLog } from "@/hooks/useSmokeLog";
 import { SmokeLog, SmokeType } from "@/types";
 import { toast } from "sonner";
-import LogsTable from '@/components/logs/LogsTable.tsx';
-import EditLogDialog from '@/components/logs/EditLogDialog.tsx';
+import LogsTable from '@/components/logs/LogsTable';
+import EditLogDialog from '@/components/logs/EditLogDialog';
 
 const Logs = () => {
   const { logs, updateLog, deleteLog } = useSmokeLog();
@@ -16,7 +15,7 @@ const Logs = () => {
     setIsEditDialogOpen(true);
   };
 
-  const saveEdit = (updatedData: { type: SmokeType; trigger: string; timestamp: string }) => {
+  const saveEdit = (updatedData: { type: SmokeType; timestamp: string }) => {
     if (editingLog) {
       updateLog(editingLog.id, updatedData);
       toast.success("Log updated successfully!");
