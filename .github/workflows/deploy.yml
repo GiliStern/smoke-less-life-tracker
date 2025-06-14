@@ -30,10 +30,9 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Replace placeholder in vite.config.ts
-        run: sed -i "s|/<YOUR_REPO_NAME>/|/${{ github.event.repository.name }}/|" vite.config.ts
-
       - name: Build project
+        env:
+          VITE_BASE_URL: /${{ github.event.repository.name }}/
         run: npm run build
 
       - name: Create 404.html for SPA fallback
