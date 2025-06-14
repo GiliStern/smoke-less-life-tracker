@@ -21,6 +21,14 @@ export const useSmokeLog = () => {
     }
   }, []);
 
+  const saveToStorage = useCallback((updatedLogs: SmokeLog[]) => {
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(updatedLogs));
+    } catch (error) {
+      console.error("Failed to save smoke logs to localStorage", error);
+    }
+  }, []);
+
   const addLog = useCallback((logData: { type: SmokeType; trigger?: string; timestamp?: string }) => {
     const logTimestamp = logData.timestamp || new Date().toISOString();
     const newLog: SmokeLog = {
@@ -33,14 +41,28 @@ export const useSmokeLog = () => {
     setLogs(prevLogs => {
       const updatedLogs = [newLog, ...prevLogs]
         .sort((a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime());
-      try {
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(updatedLogs));
-      } catch (error) {
-        console.error("Failed to save smoke logs to localStorage", error);
-      }
+      saveToStorage(updatedLogs);
       return updatedLogs;
     });
-  }, []);
+  }, [saveToStorage]);
 
-  return { logs, addLog, loading };
+  const updateLog = useCallback((id: string, updatedData: Partial<SmokeLog>) => {
+    setLogs(prevLogs => {
+      const updatedLogs = prevLogs.map(log => 
+        log.id === id ? { ...log, ...updatedData } : log
+      ).sort((a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime());
+      saveToStorage(updatedLogs);
+      return updatedLogs;
+    });
+  }, [saveToStorage]);
+
+  const deleteLog = useCallback((id: string) => {
+    setLogs(prevLogs => {
+      const updatedLogs = prevLogs.filter(log => log.id !== id);
+      saveToStorage(updatedLogs);
+      return updatedLogs;
+    });
+  }, [saveToStorage]);
+
+  return { logs, addLog, updateLog, deleteLog, loading };
 };
