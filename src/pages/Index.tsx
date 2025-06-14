@@ -7,7 +7,7 @@ import { SmokeType } from "@/types";
 import { toast } from "sonner";
 import { BarChart, Cigarette, Clock, Leaf } from 'lucide-react';
 import StatCard from '@/components/dashboard/StatCard';
-import { differenceInHours, differenceInMinutes, differenceInSeconds, formatDistanceToNowStrict } from 'date-fns';
+import { formatDistanceToNowStrict } from 'date-fns';
 
 const Index = () => {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
@@ -33,7 +33,7 @@ const Index = () => {
     }
   }, [logs]);
 
-  const handleLog = (logData: { type: SmokeType; trigger?: string }) => {
+  const handleLog = (logData: { type: SmokeType; trigger?: string; timestamp?: string }) => {
     addLog(logData);
     toast.success(`${logData.type} logged successfully!`);
   };

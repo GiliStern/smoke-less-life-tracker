@@ -1,6 +1,6 @@
 
 import { useState, useEffect, useCallback } from 'react';
-import { SmokeLog } from '@/types';
+import { SmokeLog, SmokeType } from '@/types';
 
 const STORAGE_KEY = 'smokeControlLog';
 
@@ -21,15 +21,18 @@ export const useSmokeLog = () => {
     }
   }, []);
 
-  const addLog = useCallback((newLog: Omit<SmokeLog, 'id' | 'timestamp'>) => {
-    const logWithTimestamp: SmokeLog = {
-      ...newLog,
-      id: new Date().toISOString(),
-      timestamp: new Date().toISOString(),
+  const addLog = useCallback((logData: { type: SmokeType; trigger?: string; timestamp?: string }) => {
+    const logTimestamp = logData.timestamp || new Date().toISOString();
+    const newLog: SmokeLog = {
+      id: crypto.randomUUID(),
+      type: logData.type,
+      timestamp: logTimestamp,
+      trigger: logData.trigger,
     };
     
     setLogs(prevLogs => {
-      const updatedLogs = [logWithTimestamp, ...prevLogs];
+      const updatedLogs = [newLog, ...prevLogs]
+        .sort((a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime());
       try {
         localStorage.setItem(STORAGE_KEY, JSON.stringify(updatedLogs));
       } catch (error) {
