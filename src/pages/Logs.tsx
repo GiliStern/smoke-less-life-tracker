@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 import { useSmokeLog } from "@/hooks/useSmokeLog";
 import { SmokeLog, SmokeType } from "@/types";
@@ -93,7 +92,6 @@ const Logs = () => {
                 <TableRow>
                   <TableHead>Date & Time</TableHead>
                   <TableHead>Type</TableHead>
-                  <TableHead>Trigger</TableHead>
                   <TableHead className="w-[100px]">Actions</TableHead>
                 </TableRow>
               </TableHeader>
@@ -107,11 +105,6 @@ const Logs = () => {
                       <Badge variant={getTypeColor(log.type)}>
                         {log.type}
                       </Badge>
-                    </TableCell>
-                    <TableCell>
-                      <span className="text-muted-foreground">
-                        {log.trigger || 'No trigger specified'}
-                      </span>
                     </TableCell>
                     <TableCell>
                       <div className="flex gap-1">
