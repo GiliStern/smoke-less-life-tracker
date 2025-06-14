@@ -4,7 +4,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from "@/components/ui/alert-dialog";
 import { useSmokeLog } from "@/hooks/useSmokeLog";
 import { toast } from "sonner";
-import { RotateCcw, User } from "lucide-react";
+import { RotateCcw } from "lucide-react";
 
 const Profile = () => {
   const { logs } = useSmokeLog();
@@ -19,7 +19,7 @@ const Profile = () => {
     <div className="flex flex-col h-full">
       <header className="p-4 sm:p-6">
         <div className="flex items-center gap-3 mb-2">
-          <User className="h-8 w-8 text-primary" />
+          <img src="/lovable-uploads/23789c59-36c7-4bf5-a537-f13eb2c0701a.png" alt="Smoke Control Logo" className="h-8 w-8" />
           <h1 className="text-2xl font-bold">Profile</h1>
         </div>
         <p className="text-muted-foreground">Manage your account and data settings.</p>

@@ -3,8 +3,8 @@ import { useState } from 'react';
 import { useSmokeLog } from "@/hooks/useSmokeLog";
 import { SmokeLog, SmokeType } from "@/types";
 import { toast } from "sonner";
-import LogsTable from '@/components/logs/LogsTable';
-import EditLogDialog from '@/components/logs/EditLogDialog';
+import LogsTable from '@/components/logs/LogsTable.tsx';
+import EditLogDialog from '@/components/logs/EditLogDialog.tsx';
 
 const Logs = () => {
   const { logs, updateLog, deleteLog } = useSmokeLog();
@@ -40,8 +40,11 @@ const Logs = () => {
   return (
     <div className="flex flex-col h-full">
       <header className="p-4 sm:p-6">
-        <h1 className="text-2xl font-bold text-left">Logs</h1>
-        <p className="text-muted-foreground text-left">View and edit your smoking history.</p>
+        <div className="flex items-center gap-3 mb-2">
+          <img src="/lovable-uploads/23789c59-36c7-4bf5-a537-f13eb2c0701a.png" alt="Smoke Control Logo" className="h-8 w-8" />
+          <h1 className="text-2xl font-bold">Logs</h1>
+        </div>
+        <p className="text-muted-foreground">View and edit your smoking history.</p>
       </header>
       
       <div className="flex-grow p-4 sm:p-6 pt-0 overflow-y-auto">
